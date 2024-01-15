@@ -1,0 +1,44 @@
+version : '3.2'
+
+services:
+ db:
+  image: mysql
+  ports: 
+   - "3306:3306"
+  command: --default-authentication-plugin=mysql_native_password
+  environment:
+   MYSQL_DATABASE: alvarodb
+   MYSQL_PASSWORD: departamento
+   MYSQL_ROOT_PASSWORD: departamento
+  volumes:
+   - ./mysql:/docker-entrypoint-initdb.d
+   - persistent:/var/lib/mysql
+  networks:
+   - default
+
+ apache:
+  build: .
+  ports:
+   - "80:80"
+  volumes:
+   - ./html:/var/www/html
+  links:
+   - db
+  networks:
+   - default
+
+ phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  links: 
+   - db:db
+  ports:
+   - 8000:80
+  environment:
+   MYSQL_USER: usuario
+   MYSQL_PASSWORD: departamento
+   MYSQL_ROOT_PASSWORD: departamento 
+  networks:
+   - default
+  
+volumes:
+    persistent:
