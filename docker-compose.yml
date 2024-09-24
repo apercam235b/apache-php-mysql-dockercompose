@@ -8,8 +8,8 @@ services:
   command: --default-authentication-plugin=mysql_native_password
   environment:
    MYSQL_DATABASE: alvarodb
-   MYSQL_PASSWORD: departamento
-   MYSQL_ROOT_PASSWORD: departamento
+   MYSQL_PASSWORD: password
+   MYSQL_ROOT_PASSWORD: password
   volumes:
    - ./mysql:/docker-entrypoint-initdb.d
    - persistent:/var/lib/mysql
@@ -35,8 +35,8 @@ services:
    - 8000:80
   environment:
    MYSQL_USER: usuario
-   MYSQL_PASSWORD: departamento
-   MYSQL_ROOT_PASSWORD: departamento 
+   MYSQL_PASSWORD: password
+   MYSQL_ROOT_PASSWORD: password 
   networks:
    - default
   
